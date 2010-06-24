@@ -110,18 +110,6 @@ public interface Location extends Iterable<Location>, Accessioned {
     public static class Tools {
 
         /**
-         * Used for building a location from a series of sub-locations
-         */
-        public static Location location(List<Location> locations, Integer sequenceLength, String type) {
-            type = (type == null) ? "join" : type;
-            sequenceLength = (sequenceLength == null) ? -1 : sequenceLength;
-
-
-
-            return null;
-        }
-
-        /**
          * Returns a location object which unlike the location constructors
          * allows you to input reverse coordinates and will convert
          * these into the right location on the positive strand.
@@ -137,6 +125,19 @@ public interface Location extends Iterable<Location>, Accessioned {
                         strand);
             }
             return new SimpleLocation(start, end, strand);
+        }
+
+        /**
+         * Allows a user to submit a location in order to form a circular
+         * location. This actually delegates to the
+         * {@link #circularLocation(int, int, org.biojava3.core.sequence.Strand, int) }
+         * method and therefore all state is loss with respect to the start
+         * and end points.
+         */
+        public static Location circularLocation(Location location, int length) {
+            return circularLocation(location.getStart().getPosition(), 
+                    location.getEnd().getPosition(), location.getStrand(),
+                    length);
         }
 
         /**
@@ -195,8 +196,10 @@ public interface Location extends Iterable<Location>, Accessioned {
                     new SimplePoint(end), strand, true, false, locations);
         }
 
+        /**
+         * Internal class used for scanning locations
+         */
         private static interface LocationPredicate {
-
             boolean accept(Location previous, Location current);
         }
 
