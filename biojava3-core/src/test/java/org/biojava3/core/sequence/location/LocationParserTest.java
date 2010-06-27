@@ -48,7 +48,7 @@ public class LocationParserTest {
                 new SimpleLocation(7, 8, Strand.NEGATIVE)));
 
         //Complex sub relations
-        assertInsdcLoc("join(1..2,join(4..5,complement(6..8))", new SimpleLocation(
+        assertInsdcLoc("join(1..2,join(4..5,complement(6..8)))", new SimpleLocation(
                 new SimplePoint(1), new SimplePoint(8), Strand.UNDEFINED,
                 new SimpleLocation(1, 2, Strand.POSITIVE),
                 new SimpleLocation(4, 8, Strand.UNDEFINED,
